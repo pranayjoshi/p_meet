@@ -18,7 +18,7 @@ func Room(c *fiber.Ctx) error {
 		c.Status(404)
 		return nil
 	}
-	// _, _, room := createOrGetRoom(uuid);
+	// uuid, suuid, _ := createOrGetRoom(uuid);
 }
 
 func RoomWebsocket(c *websocket.Conn) {
