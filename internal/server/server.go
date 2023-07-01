@@ -5,10 +5,13 @@ import (
 	"os"
 	"time"
 
+	"github.com/pranayjoshi/p_meet.git/internal/handlers"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/template/html"
+
+	// "github.com/gofiber/template/html"
 	"github.com/gofiber/websocket/v2"
 )
 
@@ -25,8 +28,9 @@ func Run() error {
 		*addr = ":8080"
 	}
 
-	engine := html.New("./views", ".html")
-	app := fiber.New(fiber.Config{Views: engine})
+	// engine := html.New("./views", ".html")
+	// app := fiber.New(fiber.Config{Views: engine})
+	app := fiber.New()
 	app.Use(logger.New())
 	app.Use(cors.New())
 
@@ -36,19 +40,19 @@ func Run() error {
 	app.Get("/room/:uuid/websocket", websocket.New(handlers.RoomWebsocket, websocket.Config{
 		HandshakeTimeout: 10 * time.Second,
 	}))
-	app.Get("/room/:uuid/chat", handlers.RoomChat)
-	app.Get("/room/:uuid/chat/websocket", websocket.New(handlers.RoomChatWebsocket))
-	app.Get("/room/:uuid/viewer/websocket", websocket.New(handlers.RoomViewerWebsocket))
-	app.Get("/stream/:suuid", handlers.Stream)
-	app.Get("/stream/:suuid/websocket", websocket.New(handlers.StreamWebsocket, websocket.Config{
-		HandshakeTimeout: 10 * time.Second,
-	}))
-	app.Get("/stream/:suuid/chat/websocket", websocket.New(handlers.StreamChatWebsocket))
-	app.Get("/stream/:suuid/viewer/websocket", websocket.New(handlers.StreamViewerWebsocket))
+	// app.Get("/room/:uuid/chat", handlers.RoomChat)
+	// app.Get("/room/:uuid/chat/websocket", websocket.New(handlers.RoomChatWebsocket))
+	// app.Get("/room/:uuid/viewer/websocket", websocket.New(handlers.RoomViewerWebsocket))
+	// app.Get("/stream/:suuid", handlers.Stream)
+	// app.Get("/stream/:suuid/websocket", websocket.New(handlers.StreamWebsocket, websocket.Config{
+	// 	HandshakeTimeout: 10 * time.Second,
+	// }))
+	// app.Get("/stream/:suuid/chat/websocket", websocket.New(handlers.StreamChatWebsocket))
+	// app.Get("/stream/:suuid/viewer/websocket", websocket.New(handlers.StreamViewerWebsocket))
 	app.Static("/", "./assets")
 
-	w.Rooms = make(map[string]*w.Room)
-	w.Streams = make(map[string]*w.Room)
+	// w.Rooms = make(map[string]*w.Room)
+	// w.Streams = make(map[string]*w.Room)
 	go dispatchKeyFrames()
 	if *cert != "" {
 		return app.ListenTLS(*addr, *cert, *key)
@@ -57,9 +61,9 @@ func Run() error {
 }
 
 func dispatchKeyFrames() {
-	for range time.NewTicker(time.Second * 3).C {
-		for _, room := range w.Rooms {
-			room.Peers.DispatchKeyFrame()
-		}
-	}
+	// for range time.NewTicker(time.Second * 3).C {
+	// 	for _, room := range w.Rooms {
+	// 		room.Peers.DispatchKeyFrame()
+	// 	}
+	// }
 }
