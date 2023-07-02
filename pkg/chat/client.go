@@ -6,6 +6,10 @@ import (
 	// "github.com/fasthttp/websocket"
 )
 
+type Client struct {
+	*models.Client
+}
+
 const (
 	writeWait   = 10 * time.Second
 	pongWait    = 60 * time.Second
@@ -13,11 +17,11 @@ const (
 	messageSize = 512
 )
 
-func (c *models.Client) readPump() {
+func (c *Client) readPump() {
 
 }
 
-func (c *models.Client) writePump() {
+func (c *Client) writePump() {
 
 }
 
