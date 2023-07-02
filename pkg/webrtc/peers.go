@@ -1,3 +1,7 @@
+package webrtc
 
+import (
+	"p_meet/models"
+)
 
-func (p *Peers)
+func (p *models.Peers)
