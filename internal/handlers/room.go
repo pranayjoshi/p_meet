@@ -28,11 +28,11 @@ func RoomWebsocket(c *websocket.Conn) {
 		return
 	}
 
-	// _, _, room := createOrGetRoom(uuid)
+	_, _, room := createOrGetRoom(uuid)
 	// w.RoomConn(c, room.Peers)
 }
 
-func createOrGetRoom(uuid string) (string, string, Room) {
+func createOrGetRoom(uuid string) (string, string, models.Room) {
 
 }
 
