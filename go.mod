@@ -8,6 +8,7 @@ require github.com/fasthttp/websocket v1.5.3 // indirect
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
+	github.com/gofiber/template v1.8.2
 	github.com/gofiber/websocket/v2 v2.2.1
 	github.com/google/uuid v1.3.0
 	github.com/klauspost/compress v1.16.5 // indirect
