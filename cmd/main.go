@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/pranayjoshi/p_meet.git/internal/server"
+	"p_meet/internal/server"
 )
 
 func main() {

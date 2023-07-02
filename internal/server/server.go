@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/pranayjoshi/p_meet.git/internal/handlers"
+	"p_meet/internal/handlers"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"

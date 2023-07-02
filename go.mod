@@ -1,4 +1,4 @@
-module github.com/pranayjoshi/p_meet.git
+module p_meet
 
 go 1.18
 
