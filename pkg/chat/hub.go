@@ -18,10 +18,13 @@ func NewHub() *models.Hub {
 func (h *Hub) Run() {
 	for {
 		select {
-		case client := <-h.Register:
+		case client := <-h.Unregister:
 			if _, ok := h.Clients[client]; ok {
 				delete(h.Clients, client)
 			}
+
+		case client := <-h.Register:
+			h.Clients[client] = true
 
 		}
 	}
