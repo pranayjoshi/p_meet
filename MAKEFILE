@@ -1,0 +1,4 @@
+
+
+build-dev:
+	docker build -t containers -f containers/images/Dockerfile . && docker build -t containers -f containers/images/Dockerfile.turn .
