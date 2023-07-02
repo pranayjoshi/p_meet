@@ -2,6 +2,10 @@ package chat
 
 import "p_meet/models"
 
+type Hub struct {
+	*models.Hub
+}
+
 func NewHub() *models.Hub {
 	return &models.Hub{
 		Broadcast:  make(chan []byte),
@@ -11,7 +15,7 @@ func NewHub() *models.Hub {
 	}
 }
 
-func (h *models.Hub) Run() {
+func (h *Hub) Run() {
 	for {
 		select {
 		case client := <-h.Register:
