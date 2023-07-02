@@ -4,4 +4,6 @@ import (
 	"p_meet/models"
 )
 
-func (p *models.Peers)
+func (p *models.Peers) DispatchKeyFrame{
+	
+}
