@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"p_meet/models"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
@@ -31,4 +32,10 @@ func RoomWebsocket(c *websocket.Conn) {
 	// w.RoomConn(c, room.Peers)
 }
 
-func createOrGetRoom(uuid string) (string, string, Room) {}
+func createOrGetRoom(uuid string) (string, string, Room) {
+
+}
+
+func RoomViewerWebsocket(c *websocket.Conn, p *models.Peers) {
+
+}
