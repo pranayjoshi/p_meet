@@ -26,6 +26,18 @@ func (h *Hub) Run() {
 		case client := <-h.Register:
 			h.Clients[client] = true
 
+
+	case client := <-h.Broadcast:
+		for client := range h.Clients{
+
+			select {
+				case client.Send <- message;
+			default:
+				close(client.Send)
+				delete(h.Clients, client)
+			}
 		}
+
+	}
 	}
 }
