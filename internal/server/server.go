@@ -6,11 +6,13 @@ import (
 	"time"
 
 	"p_meet/internal/handlers"
+	w "p_meet/pkg/webrtc"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 
+	// "github.com/gofiber/template"
 	"github.com/gofiber/websocket/v2"
 )
 
@@ -27,7 +29,7 @@ func Run() error {
 		*addr = ":8080"
 	}
 
-	// engine := html.New("./views", ".html")
+	// engine := template.New("./views", ".html")
 	// app := fiber.New(fiber.Config{Views: engine})
 	app := fiber.New()
 	app.Use(logger.New())
@@ -60,9 +62,9 @@ func Run() error {
 }
 
 func dispatchKeyFrames() {
-	// for range time.NewTicker(time.Second * 3).C {
-	// 	for _, room := range w.Rooms {
-	// 		room.Peers.DispatchKeyFrame()
-	// 	}
-	// }
+	for range time.NewTicker(time.Second * 3).C {
+		for _, room := range w.Rooms {
+			room.Peers.DispatchKeyFrame()
+		}
+	}
 }
