@@ -4,8 +4,8 @@ import (
 	"p_meet/models"
 	"time"
 
-	// "github.com/gofiber/websocket/v2"
 	"github.com/fasthttp/websocket"
+	// "github.com/gofiber/websocket/v2"
 )
 
 type Client struct {
@@ -37,4 +37,11 @@ func (c *Client) writePump() {
 
 }
 
-func PeerChatConn() {}
+func PeerChatConn(c *websocket.Conn, hub *models.Hub) {
+	clientComp := &models.Client{Hub: hub, Conn: c, Send: make(chan []byte)}
+	client := &Client{Client: clientComp}
+	client.Hub.Register <- clientComp
+
+	go client.writePump()
+	client.readPump()
+}

@@ -1,6 +1,6 @@
 package models
 
-import "github.com/gofiber/websocket/v2"
+import "github.com/fasthttp/websocket"
 
 type Client struct {
 	Hub  *Hub
