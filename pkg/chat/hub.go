@@ -6,7 +6,7 @@ type Hub struct {
 	*models.Hub
 }
 
-func NewHub() *models.Hub {
+func NewHub() *Hub {
 	return &models.Hub{
 		Broadcast:  make(chan []byte),
 		Register:   make(chan *models.Client),
