@@ -8,6 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
 	guuid "github.com/google/uuid"
+
+	w "p_meet/pkg/webrtc"
 )
 
 func RoomCreate(c *fiber.Ctx) error {
@@ -58,5 +60,16 @@ func createOrGetRoom(uuid string) (string, string, models.Room) {
 }
 
 func RoomViewerWebsocket(c *websocket.Conn, p *models.Peers) {
+	uuid := c.Params("uuid")
+	if uuid == "" {
+		return
+	}
 
+	w.RoomsLock.Lock()
+	if peer, ok := w.Rooms[uuid]; ok {
+		w.RoomsLock.Unlock()
+		roomViewerConn(c, peer.Peers)
+		return
+	}
+	w.RoomsLock.Unlock()
 }
