@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"crypto/sha256"
 	"fmt"
 	"os"
 	"p_meet/models"
@@ -10,6 +11,7 @@ import (
 	"github.com/gofiber/websocket/v2"
 	guuid "github.com/google/uuid"
 
+	"p_meet/pkg/chat"
 	w "p_meet/pkg/webrtc"
 )
 
@@ -57,7 +59,33 @@ func RoomWebsocket(c *websocket.Conn) {
 }
 
 func createOrGetRoom(uuid string) (string, string, models.Room) {
+	w.RoomsLock.Lock()
+	defer w.RoomsLock.Unlock()
 
+	h := sha256.New()
+	h.Write([]byte(uuid))
+	suuid := fmt.Sprintf("%x", h.Sum(nil))
+
+	if room := w.Rooms[uuid]; room != nil {
+		if _, ok := w.Streams[suuid]; !ok {
+			w.Streams[suuid] = room
+		}
+		return uuid, suuid, room
+	}
+
+	hub := chat.NewHub()
+	p := &w.Peers{}
+	p.TrackLocals = make(map[string]*webrtc.TrackLocalStaticRTP)
+	room := &w.Room{
+		Peers: p,
+		Hub:   hub,
+	}
+
+	w.Rooms[uuid] = room
+	w.Streams[suuid] = room
+
+	go hub.Run()
+	return uuid, suuid, room
 }
 
 func RoomViewerWebsocket(c *websocket.Conn, p *models.Peers) {
