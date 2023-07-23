@@ -10,6 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"
 	guuid "github.com/google/uuid"
+	"github.com/pion/webrtc/v3"
 
 	"p_meet/pkg/chat"
 	w "p_meet/pkg/webrtc"
